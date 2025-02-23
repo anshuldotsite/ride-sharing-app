@@ -29,6 +29,10 @@ const rideData = {
     rideCount: 50,
     totalSpent: 350.71,
   },
+  paymentMethods: [
+    { id: 1, card: "**** **** **** 4242" },
+    { id: 2, card: "**** **** **** 1234" },
+  ],
   testimonials: [
     { id: 1, rating: 5, review: "Great ride, very comfortable!" },
     { id: 2, rating: 4, review: "Good service but could be faster." },

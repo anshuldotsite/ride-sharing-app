@@ -27,12 +27,8 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-            <Link href="/register">
-              <a>Register</a>
-            </Link>
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
           </>
         )}
         <DarkModeToggle />

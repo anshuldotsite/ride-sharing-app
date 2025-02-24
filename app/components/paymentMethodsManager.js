@@ -61,7 +61,7 @@ export default function PaymentMethodsManager() {
 
   return (
     <div className="border p-4 rounded">
-      <h2 className="text-2xl font-bold mb-2">Payment Methods</h2>
+      <h2 className="text-2xl font-bold mb-2">Cards</h2>
       {methods.length > 0 ? (
         <ul className="space-y-2">
           {methods.map((method) => (

@@ -43,7 +43,7 @@ export default function LocationSearch({ label, value, onSelect }) {
   };
 
   return (
-    <div className="relative">
+    <div className="w-full  ">
       <label className="block font-semibold mb-1">{label}</label>
       <input
         type="text"

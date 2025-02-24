@@ -1,15 +1,13 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
 import MapComponent from "./map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationArrow,
-  faThumbtack,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLocationArrow, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import DateTimePicker from "./dateTimePicker";
 import RecentActivityMessage from "./recentActivity";
 import PaymentStripe from "./paymentStripe";
-import LocationSearch from "./locationSearch"; // import our autocomplete component
+import LocationSearch from "./locationSearch";
 
 export default function RideBookingForm() {
   const [pickup, setPickup] = useState("");
@@ -33,29 +31,42 @@ export default function RideBookingForm() {
 
   return (
     <>
-      <div className="border p-4 rounded shadow-md inline-block mb-4">
-        <form className="space-y-4">
+      <motion.div
+        className="border p-4 rounded shadow-md mb-4 h-full"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <form className="space-y-4 h-full flex flex-col justify-start">
           {/* Pickup Location */}
-          <div className="flex flex-row items-center space-x-2">
-            <FontAwesomeIcon icon={faLocationArrow} className="w-5 mb-1" />
-            <label className="block font-semibold">Pickup Location</label>
-          </div>
-          <LocationSearch
-            label="Pickup location"
-            value={pickup}
-            onSelect={setPickup}
-          />
+          <motion.div
+            className="flex flex-row items-center space-x-2"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <FontAwesomeIcon icon={faLocationArrow} className="w-5 mb-11" />
+            <LocationSearch
+              label="Pickup location"
+              value={pickup}
+              onSelect={setPickup}
+            />
+          </motion.div>
 
           {/* Dropoff Location */}
-          <div className="flex flex-row items-center space-x-2">
-            <FontAwesomeIcon icon={faThumbtack} className="w-5 mb-1" />
-            <label className="block font-semibold">Dropoff Location</label>
-          </div>
-          <LocationSearch
-            label="Dropoff location"
-            value={destination}
-            onSelect={setDestination}
-          />
+          <motion.div
+            className="flex flex-row items-center space-x-2"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            <FontAwesomeIcon icon={faThumbtack} className="w-5 mb-11" />
+            <LocationSearch
+              label="Dropoff location"
+              value={destination}
+              onSelect={setDestination}
+            />
+          </motion.div>
 
           <DateTimePicker />
 
@@ -88,7 +99,7 @@ export default function RideBookingForm() {
             </div>
           </div>
         </form>
-      </div>
+      </motion.div>
       <RecentActivityMessage />
     </>
   );

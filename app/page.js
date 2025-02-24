@@ -3,9 +3,13 @@ import Navbar from "./components/navbar";
 import MapComponent from "./components/map";
 import RideBookingForm from "./components/rideBookingForm";
 import { motion } from "framer-motion";
-// import { LineShadowText } from "@/components/magicui/line-shadow-text";
+import { LineShadowText } from "@/components/magicui/line-shadow-text";
+import { useTheme } from "next-themes";
+import DarkModeToggle from "./components/darkMode";
 
 export default function Home() {
+  const theme = useTheme();
+  const shadowColor = DarkModeToggle.theme==="light" ? "black" : "white";
   return (
     <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
       <Navbar />
@@ -17,10 +21,10 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            Go anywhere with RideShare
-            {/* <LineShadowText className="italic" shadowColor={shadowColor}>
+            Go anywhere with Ride
+            <LineShadowText className="italic" shadowColor={shadowColor}>
         Share
-      </LineShadowText> */}
+      </LineShadowText>
           </motion.h1>
           <div className="flex space-x-4 mb-6">
             <h1 className="px-4 py-2 border-b-2 border-black dark:border-white font-semibold">

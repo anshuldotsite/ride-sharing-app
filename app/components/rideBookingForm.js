@@ -8,6 +8,7 @@ import DateTimePicker from "./dateTimePicker";
 import RecentActivityMessage from "./recentActivity";
 import PaymentStripe from "./paymentStripe";
 import LocationSearch from "./locationSearch";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 export default function RideBookingForm() {
   const [pickup, setPickup] = useState("");
@@ -32,11 +33,18 @@ export default function RideBookingForm() {
   return (
     <>
       <motion.div
-        className="border p-4 rounded shadow-md mb-4 h-full"
+        className=" border *:p-4 rounded shadow-md mb-4 h-full"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
+        
       >
+        <BorderBeam
+              duration={4}
+              size={300}
+              reverse
+              className="from-transparent via-green-500 to-transparent"
+            />
         <form className="space-y-4 h-full flex flex-col justify-start">
           {/* Pickup Location */}
           <motion.div
@@ -91,6 +99,7 @@ export default function RideBookingForm() {
             <div className="mt-4">
               <MapComponent pickup={pickup} destination={destination} />
             </div>
+              
             <div className="flex justify-center mt-4">
               <PaymentStripe
                 amount={estimatedFare ? estimatedFare * 100 : 0}

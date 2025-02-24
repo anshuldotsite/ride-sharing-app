@@ -19,7 +19,7 @@ export async function POST(request) {
         },
       ],
       // For testing only—replace these lines:
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/profile?session_id={CHECKOUT_SESSION_ID}`,
 
       cancel_url: "http://localhost:3000/cancel",
     });

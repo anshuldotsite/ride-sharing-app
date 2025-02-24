@@ -11,10 +11,10 @@ export const authOptions = {
   callbacks: {
     async redirect({ url, baseUrl }) {
       // Always redirect to the dashboard after sign in/up
-      return `${baseUrl}/dashboard`;
+      return `${baseUrl}/`;
     },
   },
 };
-
+  
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

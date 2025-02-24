@@ -1,12 +1,15 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import MapComponent from "./map";
-import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
-import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLocationArrow,
+  faThumbtack,
+} from "@fortawesome/free-solid-svg-icons";
 import DateTimePicker from "./dateTimePicker";
 import RecentActivityMessage from "./recentActivity";
+import PaymentStripe from "./paymentStripe";
+import LocationSearch from "./locationSearch"; // import our autocomplete component
 
 export default function RideBookingForm() {
   const [pickup, setPickup] = useState("");
@@ -15,62 +18,52 @@ export default function RideBookingForm() {
   const [estimatedFare, setEstimatedFare] = useState(null);
 
   const calculateFare = useCallback(() => {
-    // A realistic fare calculation:
-    // Base fare of ₹50 plus a per km rate. Simulate a distance between 5 and 30 km.
     const baseFare = 50;
-    const distance = Math.random() * 25 + 5; // 5 to 30 km
-    const rate = rideType === "premium" ? 15 : 10; // Higher rate for premium
+    const distance = Math.random() * 25 + 5; // simulate 5 to 30 km
+    const rate = rideType === "premium" ? 15 : 10;
     const fare = baseFare + distance * rate;
     setEstimatedFare(Math.round(fare));
   }, [rideType]);
 
-  // Automatically calculate fare when pickup, destination, or rideType changes
   useEffect(() => {
     if (pickup && destination) {
       calculateFare();
     }
   }, [pickup, destination, rideType, calculateFare]);
 
-  const handleBooking = (e) => {
-    e.preventDefault();
-    // Redirect to Stripe payment gateway URL (dummy URL for now)
-    window.location.href =
-      "https://checkout.stripe.com/pay/cs_test_dummySessionId";
-  };
-
   return (
     <>
       <div className="border p-4 rounded shadow-md inline-block mb-4">
-        <form onSubmit={handleBooking} className="space-y-4">
+        <form className="space-y-4">
+          {/* Pickup Location */}
           <div className="flex flex-row items-center space-x-2">
             <FontAwesomeIcon icon={faLocationArrow} className="w-5 mb-1" />
             <label className="block font-semibold">Pickup Location</label>
           </div>
-          <input
-            type="text"
+          <LocationSearch
+            label="Pickup location"
             value={pickup}
-            onChange={(e) => setPickup(e.target.value)}
-            className="min-w-[250px] p-2 mb-4 border rounded-lg bg-white dark:bg-black text-black dark:text-white"
-            placeholder="Enter location"
+            onSelect={setPickup}
           />
+
+          {/* Dropoff Location */}
           <div className="flex flex-row items-center space-x-2">
             <FontAwesomeIcon icon={faThumbtack} className="w-5 mb-1" />
-            <label className="block font-semibold">Dropoff location</label>
+            <label className="block font-semibold">Dropoff Location</label>
           </div>
-          <input
-            type="text"
+          <LocationSearch
+            label="Dropoff location"
             value={destination}
-            onChange={(e) => setDestination(e.target.value)}
-            className="min-w-[250px] p-2 mb-4 border rounded bg-white dark:bg-black text-black dark:text-white"
-            placeholder="Where to?"
-            required
+            onSelect={setDestination}
           />
+
           <DateTimePicker />
+
           <div className="flex flex-col space-y-4">
             <div className="flex flex-row text-lg space-x-4 font-semibold">
               <p>Choose your ride type:</p>
               <select
-                className="space-x-1 bg-white dark:bg-black text-black dark:text-white"
+                className="bg-white dark:bg-black text-black dark:text-white"
                 value={rideType}
                 onChange={(e) => setRideType(e.target.value)}
                 required
@@ -88,15 +81,10 @@ export default function RideBookingForm() {
               <MapComponent pickup={pickup} destination={destination} />
             </div>
             <div className="flex justify-center mt-4">
-              <button
-                type="submit"
-                className="w-48 p-2 font-semibold text-lg bg-black text-white dark:bg-white dark:text-black rounded-xl cursor-pointer"
-                disabled={!pickup || !destination || estimatedFare === null}
-                // Toast notification for booking ride has been booked, and
-                // redirect to payment gateway
-              >
-                Book Ride
-              </button>
+              <PaymentStripe
+                amount={estimatedFare ? estimatedFare * 100 : 0}
+                currency="inr"
+              />
             </div>
           </div>
         </form>

@@ -64,20 +64,18 @@ export default function ProfilePage() {
 
         {/* Tab-like navigation row (placeholders) */}
         <div className="mt-6 flex justify-center space-x-4 border-b border-gray-200 dark:border-gray-700">
-          {["Overview"].map(
-            (tab, i) => (
-              <button
-                key={tab}
-                className={`pb-2 px-2 text-sm font-medium hover:text-blue-500 ${
-                  i === 0
-                    ? "border-b-2 border-blue-500 text-blue-500"
-                    : "text-gray-500 dark:text-gray-400"
-                }`}
-              >
-                {tab}
-              </button>
-            )
-          )}
+          {["Overview"].map((tab, i) => (
+            <button
+              key={tab}
+              className={`pb-2 px-2 text-sm font-medium hover:text-blue-500 ${
+                i === 0
+                  ? "border-b-2 border-blue-500 text-blue-500"
+                  : "text-gray-500 dark:text-gray-400"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
       </motion.section>
 
@@ -145,7 +143,6 @@ export default function ProfilePage() {
                 No rides recorded.
               </p>
             )}
-
           </div>
         </motion.div>
 
@@ -207,7 +204,7 @@ export default function ProfilePage() {
         >
           <h2 className="text-2xl font-bold mb-4">Feedback</h2>
           <div className="border p-4 rounded  bg-white dark:bg-black text-black dark:text-white">
-          <FeedbackSection testimonials={rideData.testimonials} />
+            <FeedbackSection testimonials={rideData.testimonials} />
           </div>
         </motion.section>
       </main>

@@ -3,7 +3,10 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import MapComponent from "./map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow, faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLocationArrow,
+  faThumbtack,
+} from "@fortawesome/free-solid-svg-icons";
 import DateTimePicker from "./dateTimePicker";
 import RecentActivityMessage from "./recentActivity";
 import PaymentStripe from "./paymentStripe";
@@ -33,18 +36,20 @@ export default function RideBookingForm() {
   return (
     <>
       <motion.div
-        className=" border *:p-4 rounded shadow-md mb-4 h-full"
+        // We keep inline-block and the same classes as before to preserve size
+        className="relative inline-block p-4 rounded shadow-md mb-4 h-full"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        
       >
+        {/* Position the BorderBeam absolutely to cover only this container's border */}
         <BorderBeam
-              duration={4}
-              size={300}
-              reverse
-              className="from-transparent via-green-500 to-transparent"
-            />
+          duration={4}
+          size={1200}
+          reverse
+          className="absolute inset-0 pointer-events-none from-transparent via-green-500 to-transparent"
+        />
+
         <form className="space-y-4 h-full flex flex-col justify-start">
           {/* Pickup Location */}
           <motion.div
@@ -99,7 +104,7 @@ export default function RideBookingForm() {
             <div className="mt-4">
               <MapComponent pickup={pickup} destination={destination} />
             </div>
-              
+
             <div className="flex justify-center mt-4">
               <PaymentStripe
                 amount={estimatedFare ? estimatedFare * 100 : 0}

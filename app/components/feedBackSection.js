@@ -27,8 +27,14 @@ function renderStars(count) {
 
 export default function FeedbackSection({ testimonials }) {
   // Compute rating stats
-  const avgRating = useMemo(() => getAverageRating(testimonials), [testimonials]);
-  const dist = useMemo(() => getRatingDistribution(testimonials), [testimonials]);
+  const avgRating = useMemo(
+    () => getAverageRating(testimonials),
+    [testimonials]
+  );
+  const dist = useMemo(
+    () => getRatingDistribution(testimonials),
+    [testimonials]
+  );
   const totalCount = testimonials.length;
 
   return (
@@ -38,8 +44,6 @@ export default function FeedbackSection({ testimonials }) {
       transition={{ duration: 0.8 }}
       className="p-6 rounded-lg shadow-lg bg-white dark:bg-black text-black dark:text-white"
     >
-      <h2 className="text-2xl font-bold mb-4">Feedback</h2>
-
       {testimonials.length === 0 ? (
         <p>No feedback submitted yet.</p>
       ) : (
@@ -51,20 +55,22 @@ export default function FeedbackSection({ testimonials }) {
                 key={testimonial.id}
                 className="p-4 rounded border bg-white dark:bg-black text-black dark:text-white"
               >
-                <p className="text-yellow-500 mb-1">{renderStars(testimonial.rating)}</p>
+                <p className="text-yellow-500 mb-1">
+                  {renderStars(testimonial.rating)}
+                </p>
                 <p>{testimonial.review}</p>
               </div>
             ))}
           </div>
 
           {/* Right Column: Rating Distribution */}
-          <div className="bg-gray-50 dark:bg-gray-900 rounded p-4 flex flex-col space-y-4">
+          <div className="bg-white dark:bg-black text-black dark:text-white rounded p-4 flex flex-col space-y-4">
             {/* Average rating and star row */}
             <div className="flex items-center space-x-2">
-              <p className="text-yellow-500 text-xl">{renderStars(Math.round(avgRating))}</p>
-              <p className="text-2xl font-bold">
-                {avgRating.toFixed(1)}
+              <p className="text-yellow-500 text-xl">
+                {renderStars(Math.round(avgRating))}
               </p>
+              <p className="text-2xl font-bold">{avgRating.toFixed(1)}</p>
               <span className="text-sm text-gray-500 dark:text-gray-400">
                 ({totalCount} reviews)
               </span>
@@ -77,7 +83,7 @@ export default function FeedbackSection({ testimonials }) {
               return (
                 <div key={star} className="flex items-center space-x-2 text-sm">
                   <span className="w-6 text-yellow-500">{star}⭐</span>
-                  <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded">
+                  <div className="flex-1 h-2 bg-white dark:bg-black text-black dark:text-white rounded">
                     <div
                       className="h-2 bg-yellow-500 rounded"
                       style={{ width: `${percent}%` }}
